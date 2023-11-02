@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">weatherApp</string>
+    <string name="Menu_search">Pesquisa</string>
+    <string name="Menu_foto">Avatar</string>
+    <string name="name">JotaP</string>
+    <string name="tempoAtual">Tempo Atual</string>
+</resources>
