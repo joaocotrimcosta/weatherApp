@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -134,13 +136,12 @@ fun centralImage(): Unit {
             .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
-        Box {
-            Box(
-                modifier = Modifier
+            Box(modifier = Modifier
                     .clip(CircleShape)
                     .background(Color.White)
-                    .size(350.dp),
-                contentAlignment = Alignment.TopCenter
+                    .size(320.dp)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
                 Box(
                     modifier = Modifier
@@ -148,16 +149,21 @@ fun centralImage(): Unit {
                         .padding(15.dp)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.sun), contentDescription = "Sol",
+                        painter = painterResource(id = R.drawable.sun),
+                        contentDescription = "Sol",
+                        modifier = Modifier
+                            .size(300.dp)
+                            .wrapContentWidth(Alignment.CenterHorizontally)
+                            .wrapContentHeight(Alignment.CenterVertically)
                     )
                 }
             }
             Row(
                 verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(0.dp, 150.dp, 0.dp, 0.dp),
-                horizontalArrangement = Arrangement.Center
+                    .padding(0.dp, 230.dp, 0.dp, 0.dp),
             ) {
                 Text(
                     text = "12ºC",
@@ -166,14 +172,13 @@ fun centralImage(): Unit {
                     color = MaterialTheme.colorScheme.secondary
                 )
                 Text(
-                    text = "Parcialmente nublado",
+                    text = " Nublado",
                     fontWeight = FontWeight.Light,
                     fontSize = TextUnit(18f, TextUnitType.Sp),
                     color = MaterialTheme.colorScheme.secondary
                 )
 
             }
-        }
     }
 }
 
