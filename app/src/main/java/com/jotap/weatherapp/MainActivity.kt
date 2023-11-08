@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -51,83 +53,140 @@ class MainActivity : ComponentActivity() {
             WeatherAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    page()
                 }
             }
         }
     }
 }
 
+var informacaoSeteDias = listOf (
+    temperaturaDia(
+        temperatura = 15,
+        estado = "Nublado",
+        resource = R.drawable.cloudy
+    ),
+    temperaturaDia(
+        temperatura = 10,
+        estado = "Tempest.",
+        resource = R.drawable.storm
+    ),
+    temperaturaDia(
+        temperatura = 0-1,
+        estado = "Neve",
+        resource = R.drawable.snowy
+    ),
+    temperaturaDia(
+        temperatura = 35,
+        estado = "Limpo",
+        resource = R.drawable.sun
+    ),
+    temperaturaDia(
+        temperatura = 25,
+        estado = "Limpo",
+        resource = R.drawable.sun
+    ),
+    temperaturaDia(
+        temperatura = 25,
+        estado = "Limpo",
+        resource = R.drawable.sun
+    ),
+    temperaturaDia(
+        temperatura = 25,
+        estado = "Limpo",
+        resource = R.drawable.sun
+    )
+
+)
+
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "Hello $name!", modifier = modifier
     )
 }
+
 @Preview(showBackground = true, heightDp = 800, widthDp = 380)
 @Composable
 fun page(): Unit {
-    Column (modifier = Modifier
-        .fillMaxWidth()
-        .padding(12.dp)){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp)
+    ) {
         Cabecalho()
         dataNome("João")
         centralImage()
+        proximosSeteDias()
 
     }
 }
 
-@Preview(showBackground = true, heightDp = 350, widthDp = 380)
+//@Preview(showBackground = true, heightDp = 350, widthDp = 380)
 @Composable
 fun centralImage(): Unit {
-    Box(modifier = Modifier
-        .height(300.dp)
-        .background(Color.Blue)
-        .fillMaxWidth()
+    Box(
+        modifier = Modifier
+            .height(300.dp)
+            .background(Color.Transparent)
+            .fillMaxWidth(),
+        contentAlignment = Alignment.Center
     ) {
-        Column {
+        Box {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(15.dp),
+                    .clip(CircleShape)
+                    .background(Color.White)
+                    .size(350.dp),
                 contentAlignment = Alignment.TopCenter
-            ){
-                Image(painter = painterResource(id = R.drawable.sun),
-                    contentDescription = "Sol")
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(15.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.sun), contentDescription = "Sol",
+                    )
+                }
             }
-            Row (verticalAlignment = Alignment.Bottom,
-                modifier = Modifier.fillMaxWidth(),
+            Row(
+                verticalAlignment = Alignment.Bottom,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(0.dp, 150.dp, 0.dp, 0.dp),
                 horizontalArrangement = Arrangement.Center
-            ){
-                Text(text = "12ºC",
+            ) {
+                Text(
+                    text = "12ºC",
                     fontWeight = FontWeight.Light,
                     fontSize = TextUnit(18f, TextUnitType.Sp),
                     color = MaterialTheme.colorScheme.secondary
                 )
-                Text(text = "TParcialmente nublado",
-                fontWeight = FontWeight.Light,
-                fontSize = TextUnit(18f, TextUnitType.Sp),
-                color = MaterialTheme.colorScheme.secondary
+                Text(
+                    text = "Parcialmente nublado",
+                    fontWeight = FontWeight.Light,
+                    fontSize = TextUnit(18f, TextUnitType.Sp),
+                    color = MaterialTheme.colorScheme.secondary
                 )
 
             }
         }
     }
 }
-@Preview(showBackground = true, heightDp = 50, widthDp = 380)
+
+// @Preview(showBackground = true, heightDp = 50, widthDp = 380)
 @Composable
 fun Cabecalho(): Unit {
-    Row (
+    Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(0.dp, 8.dp)
             .fillMaxWidth()
-    ){
+    ) {
 
         Button(
             onClick = { /*TODO*/ },
@@ -137,7 +196,8 @@ fun Cabecalho(): Unit {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.search),
-                contentDescription = R.string.Menu_search.toString())
+                contentDescription = R.string.Menu_search.toString()
+            )
         }
         Button(
             onClick = { /*TODO*/ },
@@ -150,37 +210,42 @@ fun Cabecalho(): Unit {
 
             Image(
                 painter = painterResource(id = R.drawable.eu),
-                contentDescription = R.string.Menu_foto.toString())
+                contentDescription = R.string.Menu_foto.toString()
+            )
 
 
         }
     }
 }
 
-@Preview (showBackground = true, widthDp = 380)
+// @Preview(showBackground = true, widthDp = 380)
 @Composable
-fun dataNome(name:String="João"): Unit {
-    Column (modifier = Modifier.fillMaxWidth()){
-        Row (modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Olá",
-                modifier = Modifier.padding(end = 2.dp ),
+fun dataNome(name: String = "João"): Unit {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = "Olá",
+                modifier = Modifier.padding(end = 2.dp),
                 fontSize = TextUnit(25f, TextUnitType.Sp),
                 color = MaterialTheme.colorScheme.primary
 
             )
-            Text(text = "$name",
+            Text(
+                text = "$name",
                 fontWeight = FontWeight.Bold,
                 fontSize = TextUnit(25f, TextUnitType.Sp),
                 color = MaterialTheme.colorScheme.primary
             )
 
         }
-        Text(text = formatData(Calendar.getInstance().time),
+        Text(
+            text = formatData(Calendar.getInstance().time),
             fontWeight = FontWeight.Light,
             fontSize = TextUnit(18f, TextUnitType.Sp),
             color = MaterialTheme.colorScheme.secondary
         )
-        Text(text = "Alenquer",
+        Text(
+            text = "Alenquer",
             fontWeight = FontWeight.Light,
             fontSize = TextUnit(18f, TextUnitType.Sp),
             color = MaterialTheme.colorScheme.secondary
@@ -195,19 +260,18 @@ fun CorpoTopo() {
     Column {
 
         Button(
-            onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.DarkGray),
-            modifier = Modifier.padding(0.dp)
-            /*.then
+            onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent, contentColor = Color.DarkGray
+            ), modifier = Modifier.padding(0.dp)/*.then
             (Modifier.border(width = 0.dp))*/
-        ){
+        ) {
             Text(text = "JotaP")
         }
         Button(
-            onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.DarkGray),
-            modifier = Modifier.padding(0.dp)
-        ){
+            onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent, contentColor = Color.DarkGray
+            ), modifier = Modifier.padding(0.dp)
+        ) {
             Text(text = "Quarta, 01 Novembro 2023")
         }
         Button(
@@ -219,10 +283,9 @@ fun CorpoTopo() {
         ) {
 
             Image(
-            painter = painterResource(id = R.drawable.sun),
-            contentDescription =  R.string.tempoAtual.toString(),
-            contentScale = ContentScale.Fit
-            /*modifier = Modifier.align(Alignment.Vertical)*/
+                painter = painterResource(id = R.drawable.sun),
+                contentDescription = R.string.tempoAtual.toString(),
+                contentScale = ContentScale.Fit/*modifier = Modifier.align(Alignment.Vertical)*/
 
             )
         }
@@ -234,3 +297,29 @@ fun formatData(data: Date): String {
     return format.format(data)
 }
 
+@Preview(showBackground = true, widthDp = 380)
+@Composable
+fun proximosSeteDias(): Unit{
+    LazyRow(){
+        items(informacaoSeteDias){
+            proximoDia (it)
+        }
+    }
+}
+
+
+@Composable
+fun proximoDia(temperaturaDia: temperaturaDia): Unit {
+    Column (
+        modifier = Modifier
+            .width(100.dp)
+            .padding(15.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+        )
+        {
+        Image(painter = painterResource(id = temperaturaDia.resource),
+            contentDescription = temperaturaDia.estado)
+            Text(text =temperaturaDia.temperatura.toString())
+            Text(text =temperaturaDia.estado)
+        }
+ }
