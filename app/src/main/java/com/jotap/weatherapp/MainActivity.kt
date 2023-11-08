@@ -300,7 +300,7 @@ fun formatData(data: Date): String {
 @Preview(showBackground = true, widthDp = 380)
 @Composable
 fun proximosSeteDias(): Unit{
-    LazyRow(){
+    LazyRow {
         items(informacaoSeteDias){
             proximoDia (it)
         }
